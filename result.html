@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Result</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        #que_exp seq:before {
+            content: attr(no);
+        }
+        .listque:hover {
+            color: rgb(213, 1, 1);
+        }
+        .circle {
+            margin: 10px;
+            width: 25px;
+            height: 25px;
+            border-radius: 31%;
+            font-size: 17px;
+            line-height: 23px;
+            text-align: center;
+            color: rgb(2, 2, 2);
+        }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- header -->
+    <div class="container-fluid overflow-hidden">
+        <div class="row border border-dark">
+            <div class="col pt-2 gutter g-0">
+                <a href="#" class="position-absolute">
+                    <img src="https://www.ucertify.com/layout/themes/bootstrap4/images/logo/ucertify_logo.png"
+                        alt="uCertify Logo">
+                </a>
+                <span class="text-center">
+                    <h1>Result</h1>
+                </span>
+            </div>
+        </div>
+        <div class="row " id="resultBox">
+            <div class="mt-5 mb-5">
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-outline- me-2 px-2 px-md-5 fw-bold">
+                        <div>
+                            <span class="d-inline-block text-secondary" id="result"></span>
+                        </div>
+                        <span class="d-none d-md-inline-block text-secondary">
+                            Result
+                        </span>
+                    </button>
+                    <button class="btn btn-outline- me-2 px-2 px-md-4 fw-bold">
+                        <div>
+                            <span class="d-inline-block text-primary" id="totalQuestion"></span>
+                        </div>
+                        <span class="d-none d-md-inline-block text-primary">Items</span>
+                    </button>
+                    <button class="btn btn-outline- me-2 px-2 px-md-4 fw-bold">
+                        <div>
+                            <span class="d-inline-block text-success" id="correct"> <b>0</b> </span>
+                        </div>
+                        <span class="d-none d-md-inline-block text-success">
+                            Correct
+                        </span>
+                    </button>
+                    <button class="btn btn-outline- me-2 px-2 px-md-4 fw-bold">
+                        <div>
+                            <span class="d-inline-block text-danger " id="incorrect"> </span>
+                        </div>
+                        <span class="d-none d-md-inline-block fw-bold text-danger">
+                            Incorrect
+                        </span>
+                    </button>
+                    <button class="btn btn-outline- me-2 px-2 px-md-4 fw-bold">
+                        <div>
+                            <span class="d-inline-block text-info" id="totalAttempted"></span>
+                        </div>
+                        <span class="d-none d-md-inline-block text-info ">
+                            Attempted
+                        </span>
+                    </button>
+                    <button class="btn btn-outline- me-2 px-2 px-md-4 fw-bold">
+                        <div>
+                            <span class="d-inline-block text-warning" id="totalUnattempted"></span>
+                        </div>
+                        <span class="d-none d-md-inline-block text-warning">
+                            Unattempted
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row " id="tableDiv">
+            <div class="container mt-2 position-relative ">
+                <div class="table-responsive  ">
+                    <table class="table table-hover " id="table">
+                        <tbody class="overflow-auto">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- list -->
+    <div class="container position-relative bg-light" id="side">
+        <div class="row flex-nowrap">
+            <div class="col-4 px-0 bg-light border border-top-0 border-dark start-0 position-fixed overflow-auto listdiv"
+                style="height:86% ; z-index: 1;">
+                <div class="d-flex flex-column px-4 pt-2 min-vh-100 max-vh-100 ">
+                    <ol class="nav nav-pills flex-column align-items-center orderlist" id="listItem">
+                        <li>
+                            <div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="btnradio" id="allItem" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-outline-dark" for="allItem">All</label>
+                                <input type="radio" class="btn-check " name="btnradio" id="attemptedItem"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-dark" for="attemptedItem">Attempted</label>
+                                <input type="radio" class="btn-check" name="btnradio" id="unattemptedItem"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-dark" for="unattemptedItem">Unattempted</label>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container pt-3">
+        <div class="row">
+            <div class="col text-center">
+                <button type="button" class="btn active " id="validation"></button>
+            </div>
+        </div>
+    </div>
+    <!-- question -->
+    <div class="container pt-3" id="question_box">
+        <p id="p1"></p>
+    </div>
+    <!-- options -->
+    <div class="container form1" id="option_box">
+        <form id="form1" class="answer">
+        </form>
+    </div>
+    <!-- Explanation -->
+    <div class="container pt-4" id="explanation">
+        <p> <b>Explanation
+                <hr>
+            </b> </p>
+        <p id="que_exp"></p>
+    </div>
+    <!-- footer -->
+    <nav class="navbar fixed-bottom navbar-light bg-light " id="footerbar" style="z-index:11;">
+        <div class="container-fluid justify-content-end">
+            <button class="btn btn-outline-dark me-3 list " type="button">List</button>
+            <button class="btn btn-outline-dark me-3 SubmitAns " type="button" id="previous">Previous</button>
+            <span class="me-3 "> <span id="queNo"></span> of <span id="totalQue"></span></span>
+            <button class="btn btn-outline-dark me-3 SubmitAns" type="button" id="next" value="submit">Next</button>
+            <button class="btn btn-outline-dark pr-3 SubmitAns" type="button" id="goback" onclick="myFunction()">Go
+                Back</button>
+        </div>
+    </nav>
+</body>
+<script>
+    function myFunction() {
+        window.location.replace("result.html");
+    }
+    let queAns = -1;
+    $(document).ready(function () {
+        //table creation
+        $.getJSON("question.json",
+            function (data2) {
+                var tb = '';
+                $.each(data2, function (key, value) {
+                    tb += `<tr>`;
+                    tb += `<td class="align-middle position-relative"><div class="d-flex justify-content-start"><div class="circle d-inline-block float-left"> ${key + 1}</td>`
+                    tb += `<td style="cursor:pointer ;" class="resultSnippet" id="${key}resultque" ><div class="review_page text-decoration-none text-dark " >  ${value.snippet} </div></td>`;
+                    tb += `<td class="text-center align-middle"><div class="d-flex justify-content-center"> <div class="circle border border-dark" id="${key}0">A</div><div class="circle border border-dark" id="${key}1">B</div> <div class="circle border border-dark" id="${key}2">C</div><div class="circle border border-dark" id="${key}3">D</div> </div ></td>`;
+                    tb += '</tr>';
+                });
+                $('#table').append(tb);
+            });
+        resultPallet()
+        $('.list').click(function () {
+            $('#side').toggle();
+        });
+        function option(que, noOfOption, qn) {
+            for (var i = 0; i < noOfOption; i++) {
+                $('.answer').append('<input class="optionSelected que' + qn + '" type="radio" id="' + i + 'op" name="choice" value=' + i + ' disabled>');
+                $('.answer').append('<label class="optionSelected"  id="' + i + 'radio" >' + '&nbsp' + que['answers'][i]['answer'] + ' </label><br>');
+            }
+        }
+        function optionColor(question_data, qn, ansData) {
+            var opt = (JSON.parse(question_data[qn - 1]['content_text']));
+            var val = -1;
+            if (ansData[0][qn] != null) {
+                val = ansData[0][qn];
+                $('#' + val + 'radio').removeClass('text-success');
+                $('#' + val + 'radio').addClass('text-danger');
+            }
+            for (var j = 0; j < 4; j++) {
+                if (opt['answers'][j]['is_correct'] == 1) {
+                    $('#' + j + 'radio').removeClass('text-danger');
+                    $('#' + j + 'radio').addClass('text-success');
+                    break;
+                }
+            }
+            $('#validation').removeClass('btn-outline-success');
+            $('#validation').removeClass('btn-outline-danger');
+            $('#validation').removeClass('btn-outline-warning');
+            if (val == j) {
+                $('#validation').addClass('btn-outline-success');
+                $('#validation').text("Correct");
+            }
+            else if (val == -1) {
+                $('#validation').addClass('btn-outline-warning');
+                $('#validation').text("Unattempted");
+            }
+            else {
+                $('#validation').addClass('btn-outline-danger');
+                $('#validation').text("Incorrect");
+            }
+        }
+        function createQuestion(question_data, qn, ansData, n) {
+            var ques = (JSON.parse(question_data[qn - 1]['content_text']))['question'];
+            var noOfOption = ((JSON.parse(question_data[qn - 1]['content_text']))['answers']).length;
+            $('#p1').html("<b>Que: " + qn + " </b>" + ques);
+            let que2 = (JSON.parse(question_data[qn - 1]['content_text']));
+            option(que2, noOfOption, qn);
+            $('#queNo').text(qn);
+            var a = ((JSON.parse(question_data[qn - 1]['content_text'])["explanation"]));
+            $("#que_exp").html(a);
+            optionColor(question_data, qn, ansData);
+            makeChecked(qn, ansData);
+            putBadge(ansData, n);
+        }
+        function optionVal() {
+            $(".optionSelected").click(function () {
+                var Id = $(this).attr("id");
+                queAns = parseInt(Id);
+            });
+        }
+        var attempted = 0;
+        var correct = 0;
+        var incorrect = 0;
+        var qn = 1;
+        var index = 0;
+        function putresult(ansData, question_data, n,noOfOption) {
+            for (var i = 0; i < n; i++) {
+                var opt = (JSON.parse(question_data[i]['content_text']));
+                for (var j = 0; j < noOfOption; j++) {
+                    if (opt['answers'][j]['is_correct'] == 1) {
+                        $('#' + i + j).addClass('bg-success');
+                        if (ansData[0][i + 1] == null)
+                            $('#' + i + j).addClass('bg-warning');
+                    }
+                }
+            }
+        }
+        //finding no of Correct and incorrect question
+        function CorrectQue(question_data, ansData, n) {
+            for (var key in ansData[0]) {
+                var v = ansData[0][key];
+                if ((JSON.parse(question_data[key - 1]['content_text']))['answers'][v]['is_correct'] == 1) {
+                    correct++;
+                }
+                else {
+                    incorrect++;
+                    $('#' + (key - 1) + v).addClass('bg-danger');
+                }
+            }
+            $("#correct").text(correct);
+            $("#incorrect").text(incorrect);
+            var res = (correct * 100) / n;
+            $("#result").text(res.toFixed(2) + '%');
+        }
+        //marking radio button 
+        function makeChecked(qn, ansData) {
+            if (ansData[0] && ansData[0][qn] != -1)
+                $('#' + ansData[0][qn] + 'op').prop('checked', true);
+        }
+        // disabling next prev buttons 
+        function disable(qn, n) {
+            if (qn >= n)
+                $('#next').prop('disabled', true);
+            if (qn < n)
+                $('#next').prop('disabled', false);
+            if (qn > 1)
+                $("#previous").prop('disabled', false);
+            if (qn <= 1)
+                $("#previous").prop('disabled', true);
+        }
+        //putting attempt and unattempted badge on list item
+        function putBadge(ansData, n) {
+            for (var i = 0; i < n; i++) {
+                if (ansData[0] != null)
+                    attempted = (Object.keys(ansData[0]).length);
+                if (ansData[0] != null && ansData[0][i + 1] != null && ansData[0][i + 1] != -1) {
+                    $('#badge' + i).text("Attempted");
+                    $('#badge' + i).removeClass('text-bg-danger');
+                    $('#badge' + i).addClass('text-bg-success');
+                    $('#' + i + 'que').addClass("attemptedQue");
+                    $('#' + i + 'que').removeClass("unattemptedQue");
+                }
+                else {
+                    $('#badge' + i).text("Unattempted");
+                    $('#badge' + i).removeClass('text-bg-success');
+                    $('#badge' + i).addClass('text-bg-danger');
+                    $('#' + i + 'que').removeClass("attemptedQue");
+                    $('#' + i + 'que').addClass("unattemptedQue");
+                }
+            }
+            $("#totalAttempted").text(attempted);
+            $("#totalUnattempted").text(n - attempted);
+        }
+        //showing answerPallet
+        function answerPallet() {
+            $('#resultBox,#side,#tableDiv').hide();
+            $('#explanation,#question_box,#option_box,#footerbar,#validation').show();
+        }
+        //showing result table 
+        function resultPallet() {
+            $('#resultBox,#side,#tableDiv').show();
+            $('#explanation,#question_box,#option_box,#footerbar,#validation,#side').hide();
+        }
+        function questionScreen(qn, n) {
+            $('#side').hide();
+            $('.answer').empty();
+            disable(qn, n);
+        }
+        $.ajax(
+            {
+                url: "question.json",
+                type: "POST",
+                success: async function (data) {
+                    var n = JSON.parse(data).length;
+                    $('#totalQue').text(n);
+                    let question_data = JSON.parse(data);
+                    var noOfOption = ((JSON.parse(question_data[qn - 1]['content_text']))['answers']).length;
+                    optionVal();
+                    $("#previous").prop('disabled', true);
+                    $("#totalQuestion").text(n);
+                    let ansData;
+                    function fatchAns() {
+                        return $.ajax({
+                            url: "answer.json",
+                            type: "POST",
+                            success: async function (check) {
+                                ansData = await JSON.parse(check || '[]');
+                            }
+                        });
+                    }
+                    await fatchAns();
+                    $(".resultSnippet").click(function () {
+                        var Id = $(this).attr("id");
+                        answerPallet();
+                        var id = parseInt(Id);
+                        createQuestion(question_data, (id + 1), ansData, n);
+                        qn = id + 1;
+                        disable(qn, n);
+                    });
+                    $('#next').click(function () {
+                        qn++;
+                        questionScreen(qn, n);
+                        createQuestion(question_data, qn, ansData, n);
+                        optionVal();
+                        index = qn - 1;
+                    });
+                    $("#previous").click(function () {
+                        qn--;
+                        questionScreen(qn, n);
+                        createQuestion(question_data, qn, ansData, n);
+                        optionVal();
+                        index = qn + 1;
+                    });
+                    // adding item to the list
+                    for (var i = 0; i < n; i++) {
+                        $('#listItem').append('<li style="cursor:pointer ;"  class=' + 'listque' + " " + 'id=' + i + 'que' + ">" + "<b>Que: " + (i + 1) + " </b>" + question_data[i]['snippet'] +
+                            '<span class="badge" id="badge' + i + '">Unattempted</span>' + '<br/><br/>' + '</li>');
+                    }
+                    putBadge(ansData, n);
+                    // list item to question
+                    $(".listque").click(function () {
+                        $('.answer').empty();
+                        var elmId = $(this).attr("id");
+                        var num = parseInt(elmId);
+                        index = qn;
+                        qn = num + 1;
+                        createQuestion(question_data, qn, ansData, n);
+                        $('#side').toggle();
+                        optionVal();
+                        disable(qn, n);
+                    });
+                    $("#unattemptedItem").click(function () {
+                        $(".attemptedQue").hide();
+                        $(".unattemptedQue").show();
+                    })
+                    $("#attemptedItem").click(function () {
+                        $(".unattemptedQue").hide();
+                        $(".attemptedQue").show();
+                    })
+                    $("#allItem").click(function () {
+                        $(".unattemptedQue").show();
+                        $(".attemptedQue").show();
+                    })
+                    CorrectQue(question_data, ansData, n);
+                    putresult(ansData, question_data, n,noOfOption);
+                }
+            });
+    });
+</script>
+</html>
