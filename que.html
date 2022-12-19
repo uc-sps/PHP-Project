@@ -14,38 +14,34 @@
         }
     </style>
 </head>
+
 <body class="overflow-hidden">
     <!-- header -->
     <div class="container-fluid overflow-hidden">
         <div class="row border border-dark">
             <div class="col pt-2 gutter g-0">
                 <a href="#" class="position-absolute">
-                    <img src="https://www.ucertify.com/layout/themes/bootstrap4/images/logo/ucertify_logo.png"
-                        alt="uCertify Logo">
+                    <img src="https://www.ucertify.com/layout/themes/bootstrap4/images/logo/ucertify_logo.png" alt="uCertify Logo">
                 </a>
                 <span class="text-center">
-                    <h1>uCertify Test Prep</h1>
-                </span>
+                        <h1>uCertify Test Prep</h1>
+                    </span>
             </div>
         </div>
     </div>
     <!-- list -->
     <div class="container  " id="side">
         <div class="row flex-nowrap">
-            <div class="col-4 px-0 bg-light border border-top-0 border-dark start-0 position-fixed overflow-auto listdiv"
-                style="height:93% ;">
+            <div class="col-4 px-0 bg-light border border-top-0 border-dark start-0 position-fixed overflow-auto listdiv" style="height:93% ;">
                 <div class="d-flex flex-column px-4 pt-2 min-vh-100 max-vh-100 ">
                     <ol class="nav nav-pills flex-column align-items-center orderlist" id="listItem">
                         <li>
                             <div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check" name="btnradio" id="allItem" autocomplete="off"
-                                    checked>
+                                <input type="radio" class="btn-check" name="btnradio" id="allItem" autocomplete="off" checked>
                                 <label class="btn btn-outline-dark" for="allItem">All</label>
-                                <input type="radio" class="btn-check" name="btnradio" id="attemptedItem"
-                                    autocomplete="off">
+                                <input type="radio" class="btn-check" name="btnradio" id="attemptedItem" autocomplete="off">
                                 <label class="btn btn-outline-dark" for="attemptedItem">Attempted</label>
-                                <input type="radio" class="btn-check" name="btnradio" id="unattemptedItem"
-                                    autocomplete="off">
+                                <input type="radio" class="btn-check" name="btnradio" id="unattemptedItem" autocomplete="off">
                                 <label class="btn btn-outline-dark" for="unattemptedItem">Unattempted</label>
                             </div>
                         </li>
@@ -60,8 +56,7 @@
     </div>
     <!-- options -->
     <div class="container form1">
-        <form id="form1" class="answer">
-        </form>
+        <form id="form1" class="answer"></form>
     </div>
     <!-- footer -->
     <nav class="navbar fixed-bottom navbar-light bg-light " style="z-index:-1;">
@@ -69,7 +64,10 @@
             <div class="me-3" id="time"></div>
             <button class="btn btn-outline-dark me-3 list " type="button" id="listbutton">List</button>
             <button class="btn btn-outline-dark me-3 SubmitAns " type="button" id="previous">Previous</button>
-            <span class="me-3 "> <span id="queNo"></span> of <span id="totalQue"></span></span>
+            <span class="me-3 ">
+                    <span id="queNo"></span> of
+            <span id="totalQue"></span>
+            </span>
             <button class="btn btn-outline-dark me-3 SubmitAns" type="button" id="next" value="submit">Next</button>
             <button class="btn btn-outline-dark pr-3 SubmitAns" type="button" id="endTest">End Test</button>
         </div>
@@ -104,12 +102,14 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-dark SubmitAns" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-outline-dark list SubmitAns" data-bs-dismiss="modal"
-                        id="list">Go To
-                        Item List</button>
-                    <button type="button" class="btn btn-dark SubmitAns" data-bs-dismiss="modal"
-                        onclick="myFunction()">End
-                        Test</button>
+                    <button type="button" class="btn btn-outline-dark list SubmitAns" data-bs-dismiss="modal" id="list">
+                            Go To
+                        Item List
+                        </button>
+                    <button type="button" class="btn btn-dark SubmitAns" data-bs-dismiss="modal" onclick="myFunction()">
+                            End
+                        Test
+                        </button>
                 </div>
             </div>
         </div>
@@ -128,10 +128,11 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark SubmitAns" data-bs-dismiss="modal"
-                        onclick="myFunction()">Go
+                    <button type="button" class="btn btn-outline-dark SubmitAns" data-bs-dismiss="modal" onclick="myFunction()">
+                            Go
                         To
-                        Result</button>
+                        Result
+                        </button>
                 </div>
             </div>
         </div>
@@ -139,9 +140,11 @@
 </body>
 <script>
     //timer
+    var testTime = 30;
+
     function startTimer(duration, display) {
         var timer = duration;
-        setInterval(function () {
+        setInterval(function() {
             minutes = parseInt(timer / 60, 10);
             seconds = parseInt(timer % 60, 10);
             minutes = minutes < 10 ? "0" + minutes : minutes;
@@ -149,33 +152,35 @@
             display.text(minutes + ":" + seconds);
             if (timer <= 0) {
                 $('#timeout').modal('show');
-            }
-            else {
+            } else {
                 timer--;
             }
         }, 1000);
     }
     //set time
-    jQuery(function () {
-        var fiveMinutes = 60 * 30; // set timer 
+    jQuery(function() {
+        var minutes = 60 * testTime; // set timer 
         display = $('#time');
-        startTimer(fiveMinutes, display);
+        startTimer(minutes, display);
     });
+
     function myFunction() {
         window.location.replace("result.html");
     }
     let queAns = -1;
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#side').hide();
-        $('.list').click(function () {
+        $('.list').click(function() {
             $('#side').toggle();
         });
+
         function option(que, noOfOption, qn) {
             for (var i = 0; i < noOfOption; i++) {
                 $('.answer').append('<input class="optionSelected que' + qn + '" type="radio" id="' + i + 'op" name="choice" value=' + i + ' >');
                 $('.answer').append('<label class="optionSelected" for="' + i + 'op" id="' + i + 'radio" >' + '&nbsp' + que['answers'][i]['answer'] + ' </label><br>');
             }
         }
+
         function createQuestion(question_data, qn) {
             var ques = (JSON.parse(question_data[qn - 1]['content_text']))['question'];
             var noOfOption = ((JSON.parse(question_data[qn - 1]['content_text']))['answers']).length;
@@ -184,41 +189,46 @@
             option(que2, noOfOption, qn);
             $('#queNo').text(qn);
         }
+
         function optionVal() {
-            $(".optionSelected").click(function () {
+            $(".optionSelected").click(function() {
                 var Id = $(this).attr("id");
                 queAns = parseInt(Id);
             });
         }
         var qn = 1;
         var index = 1;
+
         function makeChecked(qn, ansData) {
             if (ansData[0] && ansData[0][qn] != -1)
                 $('#' + ansData[0][qn] + 'op').prop('checked', true);
         }
         var attempted = 0;
+
         function putBadge(ansData, n) {
             for (var i = 0; i < n; i++) {
                 if (ansData[0] != null)
                     attempted = (Object.keys(ansData[0]).length);
+                var badgeValue = $('#badge' + i);
+                var queBadge = $('#' + i + 'que');
                 if (ansData[0] != null && ansData[0][i + 1] != null && ansData[0][i + 1] != -1) {
-                    $('#badge' + i).text("Attempted");
-                    $('#badge' + i).removeClass('text-bg-danger');
-                    $('#badge' + i).addClass('text-bg-success');
-                    $('#' + i + 'que').addClass("attemptedQue");
-                    $('#' + i + 'que').removeClass("unattemptedQue");
-                }
-                else {
-                    $('#badge' + i).text("Unattempted");
-                    $('#badge' + i).removeClass('text-bg-success');
-                    $('#badge' + i).addClass('text-bg-danger');
-                    $('#' + i + 'que').removeClass("attemptedQue");
-                    $('#' + i + 'que').addClass("unattemptedQue");
+                    badgeValue.text("Attempted");
+                    badgeValue.removeClass('text-bg-danger');
+                    badgeValue.addClass('text-bg-success');
+                    queBadge.addClass("attemptedQue");
+                    queBadge.removeClass("unattemptedQue");
+                } else {
+                    badgeValue.text("Unattempted");
+                    badgeValue.removeClass('text-bg-success');
+                    badgeValue.addClass('text-bg-danger');
+                    queBadge.removeClass("attemptedQue");
+                    queBadge.addClass("unattemptedQue");
                 }
             }
             $("#totalAttempted").text(attempted);
             $("#totalUnattempted").text(n - attempted);
         }
+
         function disable(qn, n) {
             if (qn >= n)
                 $('#next').prop('disabled', true);
@@ -229,111 +239,112 @@
             if (qn <= 1)
                 $("#previous").prop('disabled', true);
         }
+
         function questionScreen(qn, n) {
             $('#side').hide();
             $('.answer').empty();
             disable(qn, n);
         }
-        $.ajax(
-            {
-                url: "question.json",
-                type: "POST",
-                success: async function (data) {
-                    var n = JSON.parse(data).length;
-                    $('#totalQue').text(n);
-                    let question_data = JSON.parse(data);
-                    var noOfOption = ((JSON.parse(question_data[qn - 1]['content_text']))['answers']).length;
-                    createQuestion(question_data, qn);
-                    optionVal();
-                    $("#previous").prop('disabled', true);
-                    $("#totalQuestion").text(n);
-                    let ansData;
-                    function fatchAns() {
-                        return $.ajax({
-                            url: "answer.json",
-                            type: "POST",
-                            success: async function (check) {
-                                ansData = await JSON.parse(check || '[]');
-                            }
-                        });
-                    }
-                    await fatchAns();
-                    makeChecked(qn, ansData);
-                    $('#next').click(function () {
-                        qn++;
-                        questionScreen(qn, n)
-                        if (qn <= n) {
-                            createQuestion(question_data, qn);
+        $.ajax({
+            url: "question.json",
+            type: "POST",
+            success: async function(data) {
+                var n = JSON.parse(data).length;
+                $('#totalQue').text(n);
+                let question_data = JSON.parse(data);
+                var noOfOption = ((JSON.parse(question_data[qn - 1]['content_text']))['answers']).length;
+                createQuestion(question_data, qn);
+                optionVal();
+                $("#previous").prop('disabled', true);
+                $("#totalQuestion").text(n);
+                let ansData;
+
+                function fatchAns() {
+                    return $.ajax({
+                        url: "answer.json",
+                        type: "POST",
+                        success: async function(check) {
+                            ansData = await JSON.parse(check || '[]');
                         }
-                        optionVal();
-                        makeChecked(qn, ansData);
-                        index = qn - 1;
-                    });
-                    $('#endTest').click(function () {
-                        index = qn;
-                        optionVal();
-                        $('#myModal').modal('show');
-                    });
-                    $("#previous").click(function () {
-                        qn--;
-                        questionScreen(qn, n)
-                        if (qn >= 1) {
-                            createQuestion(question_data, qn);
-                        }
-                        optionVal();
-                        makeChecked(qn, ansData);
-                        index = qn + 1;
-                    });
-                    // adding item to the list
-                    for (var i = 0; i < n; i++) {
-                        $('#listItem').append('<li style="cursor:pointer ;"  class=' + 'listque' + " " + 'id=' + i + 'que' + ">" + "<b>Que: " + (i + 1) + " </b>" + question_data[i]['snippet'] +
-                            '<span class="badge" id="badge' + i + '">Unattempted</span>' + '<br/><br/>' + '</li>');
-                    }
-                    putBadge(ansData, n);
-                    // list item to question
-                    $(".listque").click(function () {
-                        $('.answer').empty();
-                        var elmId = $(this).attr("id");
-                        var num = parseInt(elmId);
-                        qn = num + 1;
-                        index = qn;
-                        createQuestion(question_data, qn);
-                        $('#side').toggle();
-                        optionVal();
-                        makeChecked(qn, ansData);
-                        disable(qn, n);
-                    });
-                    $("#unattemptedItem").click(function () {
-                        $(".attemptedQue").hide();
-                        $(".unattemptedQue").show();
-                    })
-                    $("#attemptedItem").click(function () {
-                        $(".unattemptedQue").hide();
-                        $(".attemptedQue").show();
-                    })
-                    $("#allItem").click(function () {
-                        $(".unattemptedQue").show();
-                        $(".attemptedQue").show();
-                    })
-                    $(".list").click(function () {
-                        index = qn;
-                    })
-                    $('.SubmitAns,.listque,#listbutton').on('click', async function (event) {
-                        event.preventDefault();
-                        await $.ajax({
-                            url: 'data.php',
-                            method: 'POST',
-                            data: {
-                                questionNo: index,
-                                choice: queAns,
-                            }
-                        });
-                        await fatchAns();
-                        await putBadge(ansData, n);
-                        queAns = -1;
                     });
                 }
-            });
+                await fatchAns();
+                makeChecked(qn, ansData);
+                $('#next').click(function() {
+                    qn++;
+                    questionScreen(qn, n)
+                    if (qn <= n) {
+                        createQuestion(question_data, qn);
+                    }
+                    optionVal();
+                    makeChecked(qn, ansData);
+                    index = qn - 1;
+                });
+                $('#endTest').click(function() {
+                    index = qn;
+                    optionVal();
+                    $('#myModal').modal('show');
+                });
+                $("#previous").click(function() {
+                    qn--;
+                    questionScreen(qn, n)
+                    if (qn >= 1) {
+                        createQuestion(question_data, qn);
+                    }
+                    optionVal();
+                    makeChecked(qn, ansData);
+                    index = qn + 1;
+                });
+                // adding item to the list
+                for (var i = 0; i < n; i++) {
+                    $('#listItem').append('<li style="cursor:pointer ;"  class=' + 'listque' + " " + 'id=' + i + 'que' + ">" + "<b>Que: " + (i + 1) + " </b>" + question_data[i]['snippet'] +
+                        '<span class="badge" id="badge' + i + '">Unattempted</span>' + '<br/><br/>' + '</li>');
+                }
+                putBadge(ansData, n);
+                // list item to question
+                $(".listque").click(function() {
+                    $('.answer').empty();
+                    var elmId = $(this).attr("id");
+                    var num = parseInt(elmId);
+                    qn = num + 1;
+                    index = qn;
+                    createQuestion(question_data, qn);
+                    $('#side').toggle();
+                    optionVal();
+                    makeChecked(qn, ansData);
+                    disable(qn, n);
+                });
+                $("#unattemptedItem").click(function() {
+                    $(".attemptedQue").hide();
+                    $(".unattemptedQue").show();
+                })
+                $("#attemptedItem").click(function() {
+                    $(".unattemptedQue").hide();
+                    $(".attemptedQue").show();
+                })
+                $("#allItem").click(function() {
+                    $(".unattemptedQue").show();
+                    $(".attemptedQue").show();
+                })
+                $(".list").click(function() {
+                    index = qn;
+                })
+                $('.SubmitAns,.listque,#listbutton').on('click', async function(event) {
+                    event.preventDefault();
+                    await $.ajax({
+                        url: 'data.php',
+                        method: 'POST',
+                        data: {
+                            questionNo: index,
+                            choice: queAns,
+                        }
+                    });
+                    await fatchAns();
+                    await putBadge(ansData, n);
+                    queAns = -1;
+                });
+            }
+        });
     });
 </script>
 
