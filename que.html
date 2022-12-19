@@ -106,7 +106,7 @@
                             Go To
                         Item List
                         </button>
-                    <button type="button" class="btn btn-dark SubmitAns" data-bs-dismiss="modal" onclick="myFunction()">
+                    <button type="button" class="btn btn-dark SubmitAns" data-bs-dismiss="modal" onclick="resultPage()">
                             End
                         Test
                         </button>
@@ -128,7 +128,7 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark SubmitAns" data-bs-dismiss="modal" onclick="myFunction()">
+                    <button type="button" class="btn btn-outline-dark SubmitAns" data-bs-dismiss="modal" onclick="resultPage()">
                             Go
                         To
                         Result
@@ -164,7 +164,7 @@
         startTimer(minutes, display);
     });
 
-    function myFunction() {
+    function resultPage() {
         window.location.replace("result.html");
     }
     let queAns = -1;
